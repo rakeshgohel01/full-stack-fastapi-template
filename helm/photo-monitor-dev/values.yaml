@@ -1,0 +1,129 @@
+replicaCount: 1
+
+renderHelmLabels: true
+
+frontendImage:
+  repository: my-repo/photo-monitor-frontend-dev
+  tag: latest
+  pullPolicy: Always
+
+backendImage:
+  repository: my-repo/photo-monitor-backend-dev
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: docker-registry-secret
+
+imageCredentials:
+  registry: my-repo
+  username: my-namespace/container-service-account.dev
+  password: SuperSecretPassword
+  email: rusty@rustyweise.com
+
+environment:
+  domain: photo-monitor-dev.rustyweise.com
+  environment: staging
+  projectName: photo-monitor-dev
+  stackName: photo-monitor-dev
+  backend:
+    backendCorsOrigins: "http://localhost,http://localhost:5173,https://localhost,https://localhost:5173,http://localhost.rustyweise.com,http://photo-monitor-dev.rustyweise.com,https://photo-monitor-dev.rustyweise.com"
+    secretKey: SuperSecretPassword
+    firstSuperuser: svcacct-dev@rustyweise.com
+    firstSuperuserPassword: SuperSecretPassword
+    usersOpenRegistration: "False"
+  emails:
+    smtpHost: smtp.office365.com
+    smtpUser: svcacct-dev@rustyweise.com
+    smtpPassword: SuperSecretPassword
+    emailsFromEmail: svcacct-dev@rustyweise.com
+    smtpTls: "True"
+    smtpSsl: "False"
+    smtpPort: 587
+  sentryDsn: ""
+  viteApiUrl: ""
+
+serviceAccount:
+  create: false
+  name: ""
+  annotations: {}
+
+serviceAccountAgent:
+  create: false
+  name: ""
+  annotations: {}
+
+service:
+  type: LoadBalancer
+  httpPort: 80
+  httpsPort: 443
+  loadBalancerIP: "200.200.200.200"
+  commonName: photo-monitor-dev.rustyweise.com
+
+postgresql:
+  image:
+    repository: postgres
+    tag: "13"
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+    port: 5432
+  pvc:
+    storageClassName: "standard"
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 8Gi
+  postgresServer: localhost
+  postgresPort: 5432
+  pgdata: /var/lib/postgresql/data/pgdata
+  postgresDb: app-db-data
+  postgresUser: postgres
+  postgresPassword: SuperSecretPassword
+
+# ingress:
+#   enabled: true
+#   ingressClassName: nginx
+#   annotations:
+#     cert-manager.io/issuer: "letsencrypt-http"
+#     spec.ingressClassName: "nginx"
+#     acme.cert-manager.io/http01-edit-in-place: "true"
+#     cert-manager.io/issue-temporary-certificate: "true"
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+#   hosts:
+#     - host: "photo-monitor-dev.rustyweise.com"
+#       paths:
+#         - path: /
+#           pathType: ImplementationSpecific
+#   tls:
+#     - hosts:
+#         - "photo-monitor-dev.rustyweise.com"
+#       secretName: letsencrypt-http
+#   ports:
+#     - port: 80
+#       targetPort: 80
+#       name: http
+#     - port: 443
+#       targetPort: 443
+#       name: https
+
+# certManager:
+#   enabled: true
+#   server: https://acme-staging-v02.api.letsencrypt.org/directory
+#   email: rusty@rustyweise.com
+#   issuerName: letsencrypt-http
+
+resources: {}
+# We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
+
+nameOverride: ""
+fullnameOverride: ""

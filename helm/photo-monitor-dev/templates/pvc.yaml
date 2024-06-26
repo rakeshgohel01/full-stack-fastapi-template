@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "photo-monitor-dev.fullname" . }}-postgresql-pvc
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - {{ .Values.postgresql.pvc.accessModes | join ", " }}
+  resources:
+    requests:
+      storage: {{ .Values.postgresql.pvc.resources.requests.storage }}
