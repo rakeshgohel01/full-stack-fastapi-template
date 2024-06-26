@@ -21,12 +21,12 @@ imageCredentials:
   email: rusty@rustyweise.com
 
 environment:
-  domain: photo-monitor-dev.rustyweise.com
+  domain: fastapi.rustyweise.com
   environment: staging
-  projectName: photo-monitor-dev
-  stackName: photo-monitor-dev
+  projectName: fastapi
+  stackName: fastapi
   backend:
-    backendCorsOrigins: "http://localhost,http://localhost:5173,https://localhost,https://localhost:5173,http://localhost.rustyweise.com,http://photo-monitor-dev.rustyweise.com,https://photo-monitor-dev.rustyweise.com"
+    backendCorsOrigins: "http://localhost,http://localhost:5173,https://localhost,https://localhost:5173,http://localhost.rustyweise.com,http://fastapi.rustyweise.com,https://fastapi.rustyweise.com"
     secretKey: SuperSecretPassword
     firstSuperuser: svcacct-dev@rustyweise.com
     firstSuperuserPassword: SuperSecretPassword
@@ -57,7 +57,7 @@ service:
   httpPort: 80
   httpsPort: 443
   loadBalancerIP: "200.200.200.200"
-  commonName: photo-monitor-dev.rustyweise.com
+  commonName: fastapi.rustyweise.com
 
 postgresql:
   image:
@@ -91,13 +91,13 @@ postgresql:
 #     cert-manager.io/issue-temporary-certificate: "true"
 #     nginx.ingress.kubernetes.io/rewrite-target: /
 #   hosts:
-#     - host: "photo-monitor-dev.rustyweise.com"
+#     - host: "fastapi.rustyweise.com"
 #       paths:
 #         - path: /
 #           pathType: ImplementationSpecific
 #   tls:
 #     - hosts:
-#         - "photo-monitor-dev.rustyweise.com"
+#         - "fastapi.rustyweise.com"
 #       secretName: letsencrypt-http
 #   ports:
 #     - port: 80
