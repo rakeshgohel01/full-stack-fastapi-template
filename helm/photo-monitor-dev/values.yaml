@@ -3,12 +3,12 @@ replicaCount: 1
 renderHelmLabels: true
 
 frontendImage:
-  repository: my-repo/photo-monitor-frontend-dev
+  repository: rustyweise/frontend
   tag: latest
   pullPolicy: Always
 
 backendImage:
-  repository: my-repo/photo-monitor-backend-dev
+  repository: rustyweise/frontend
   tag: latest
   pullPolicy: Always
 
@@ -56,7 +56,7 @@ service:
   type: LoadBalancer
   httpPort: 80
   httpsPort: 443
-  loadBalancerIP: "200.200.200.200"
+  loadBalancerIP: "146.235.216.242"
   commonName: fastapi.rustyweise.com
 
 postgresql:
